@@ -18,8 +18,9 @@ import com.mlodi.sicredi.devandroidtest.ui.checkin.CheckInViewModelSetup.CheckIn
 import com.mlodi.sicredi.devandroidtest.ui.checkin.CheckInViewModelSetup.CheckInEvent
 import com.mlodi.sicredi.devandroidtest.ui.checkin.CheckInViewModelSetup.CheckInState
 import com.mlodi.sicredi.devandroidtest.ui.util.Constants.ARGUMENT_EVENT_ID
+import com.mlodi.sicredi.devandroidtest.ui.util.Constants.ARGUMENT_SUCCESS_DIALOG_SHOWING
 import com.mlodi.sicredi.devandroidtest.util.isValidEmail
-import com.mlodi.sicredi.devandroidtest.util.showGenericError
+import com.mlodi.sicredi.devandroidtest.util.createGenericErrorDialog
 import kotlinx.coroutines.launch
 
 class CheckInFragment : Fragment() {
@@ -28,6 +29,8 @@ class CheckInFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: CheckInViewModel by viewModels()
+    private val successCheckInDialog by lazy{ createSuccessCheckInDialog() }
+    private val genericErrorDialog by lazy { requireActivity().createGenericErrorDialog { findNavController().navigateUp() } }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCheckInBinding.inflate(inflater)
@@ -36,6 +39,10 @@ class CheckInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        savedInstanceState?.getBoolean(ARGUMENT_SUCCESS_DIALOG_SHOWING, false)?.let { hasToShow ->
+            if (hasToShow)successCheckInDialog.show()
+        }
 
         renderAndExecute()
         init()
@@ -88,24 +95,23 @@ class CheckInFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.action.observe(viewLifecycleOwner, Observer { action ->
                 when(action){
-                    is ShowSuccessCheckIn -> showSuccessCheckInDialog()
-                    is ShowGenericError -> requireActivity().showGenericError() { findNavController().navigateUp() }
+                    is ShowSuccessCheckIn -> successCheckInDialog.show()
+                    is ShowGenericError -> genericErrorDialog.show()
                 }
             })
         }
     }
 
-    private fun showSuccessCheckInDialog(){
-        val builder = AlertDialog.Builder(requireActivity()).apply {
+    private fun createSuccessCheckInDialog(): AlertDialog{
+        return AlertDialog.Builder(requireActivity()).apply {
             setTitle(R.string.checkin_send_data_success_title_text)
             setMessage(R.string.checkin_send_data_success_desc_text)
             setNeutralButton(R.string.checkin_send_data_success_btn_text) { dialog, _ ->
                 closeCheckIn()
                 dialog.dismiss()
             }
-        }
-
-        builder.create().show()
+            setCancelable(false)
+        }.create()
     }
 
     private fun closeCheckIn(){
@@ -117,4 +123,14 @@ class CheckInFragment : Fragment() {
         binding.checkinRoot.visibility = if(visible) View.GONE else View.VISIBLE
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if (successCheckInDialog.isShowing) outState.putBoolean(ARGUMENT_SUCCESS_DIALOG_SHOWING, true)
+    }
+
+    override fun onDestroyView() {
+        successCheckInDialog.dismiss()
+        genericErrorDialog.dismiss()
+        super.onDestroyView()
+    }
 }

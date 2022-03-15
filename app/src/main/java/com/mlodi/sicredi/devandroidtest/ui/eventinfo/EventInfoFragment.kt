@@ -16,6 +16,7 @@ import com.mlodi.sicredi.devandroidtest.databinding.FragmentEventInfoBinding
 import com.mlodi.sicredi.devandroidtest.ui.eventinfo.EventInfoViewModelSetup.*
 import com.mlodi.sicredi.devandroidtest.ui.eventinfo.EventInfoViewModelSetup.EventInfoEvent.LifeCycleEvent.OnViewLoaded
 import com.mlodi.sicredi.devandroidtest.ui.util.Constants.ARGUMENT_EVENT_ID
+import com.mlodi.sicredi.devandroidtest.util.createGenericErrorDialog
 import kotlinx.coroutines.launch
 
 class EventInfoFragment : Fragment() {
@@ -24,6 +25,7 @@ class EventInfoFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: EventInfoViewModel by viewModels()
+    private val genericErrorDialog by lazy { requireActivity().createGenericErrorDialog { findNavController().navigateUp() } }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentEventInfoBinding.inflate(inflater)
@@ -63,7 +65,7 @@ class EventInfoFragment : Fragment() {
             viewModel.action.observe(viewLifecycleOwner, Observer { action ->
                 when(action){
                     is EventInfoAction.OpenCheckIn -> openCheckIn(action.eventId)
-                    is EventInfoAction.ShowGenericError -> {}
+                    is EventInfoAction.ShowGenericError -> genericErrorDialog.show()
                 }
             })
         }
@@ -88,4 +90,8 @@ class EventInfoFragment : Fragment() {
         binding.event = event
     }
 
+    override fun onDestroyView() {
+        genericErrorDialog.dismiss()
+        super.onDestroyView()
+    }
 }

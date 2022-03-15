@@ -24,15 +24,14 @@ fun String.isValidEmail(): Boolean{
     return this.matches(EMAIL_PATTERN.toRegex())
 }
 
-fun Context.showGenericError(onDismissClicked: (() -> Unit)? = null){
-    val builder = AlertDialog.Builder(this).apply {
+fun Context.createGenericErrorDialog(onDismissClicked: (() -> Unit)? = null): AlertDialog{
+    return AlertDialog.Builder(this).apply {
         setTitle(R.string.error_generic_title_text)
         setMessage(R.string.error_generic_desc_text)
         setNeutralButton(R.string.error_generic_dismiss_btn_text) { dialog, _ ->
             onDismissClicked?.invoke()
             dialog.dismiss()
         }
-    }
-
-    builder.create().show()
+            setCancelable(false)
+    }.create()
 }

@@ -16,6 +16,7 @@ import com.mlodi.sicredi.devandroidtest.databinding.FragmentEventListBinding
 import com.mlodi.sicredi.devandroidtest.ui.eventlist.EventListViewModelSetup.*
 import com.mlodi.sicredi.devandroidtest.ui.eventlist.EventListViewModelSetup.EventListEvent.LifeCycleEvent
 import com.mlodi.sicredi.devandroidtest.ui.util.Constants.ARGUMENT_EVENT_ID
+import com.mlodi.sicredi.devandroidtest.util.createGenericErrorDialog
 import kotlinx.coroutines.launch
 
 class EventListFragment : Fragment() {
@@ -25,6 +26,7 @@ class EventListFragment : Fragment() {
 
     private val viewModel: EventListViewModel by viewModels()
     private val eventAdapter by lazy { EventListAdapter(onEventClicked) }
+    private val genericErrorDialog by lazy { requireActivity().createGenericErrorDialog() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentEventListBinding.inflate(inflater)
@@ -61,7 +63,7 @@ class EventListFragment : Fragment() {
             viewModel.action.observe(viewLifecycleOwner, Observer { action ->
                 when(action){
                     is EventListAction.OpenEventInfo -> openEventInfo(action.eventId)
-                    is EventListAction.ShowGenericError -> {}
+                    is EventListAction.ShowGenericError -> genericErrorDialog.show()
                 }
             })
         }
@@ -90,5 +92,10 @@ class EventListFragment : Fragment() {
             binding.eventListEventsRecycler.visibility = View.VISIBLE
             binding.eventListEmptyLayout.visibility = View.GONE
         }
+    }
+
+    override fun onDestroyView() {
+        genericErrorDialog.dismiss()
+        super.onDestroyView()
     }
 }
