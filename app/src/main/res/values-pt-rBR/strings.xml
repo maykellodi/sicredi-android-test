@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="event_list_empty_text">Não existem eventos ativos no momento.</string>
+    <string name="event_list_title">Lista de eventos</string>
+    <string name="event_info_title">Informações do evento</string>
+    <string name="event_info_date_label_text">Data do evento</string>
+    <string name="event_info_description_label_text">Detalhes</string>
+    <string name="checkin_user_name_hint_text">Seu nome</string>
+    <string name="checkin_user_email_hint_text">Seu e-mail</string>
+    <string name="checkin_send_data_btn_text">Enviar dados</string>
+    <string name="checkin_user_name_empty_error_text">Por favor, digite seu nome</string>
+    <string name="checkin_user_email_empty_error_text">Por favor, digite seu e-mail</string>
+    <string name="checkin_send_data_success_title_text">Sucesso</string>
+    <string name="checkin_send_data_success_desc_text">Seu check-in foi realizado</string>
+    <string name="checkin_send_data_success_btn_text">Fechar</string>
+
+    <!-- Generic Error strings -->
+    <string name="error_generic_title_text">Algo deu errado!</string>
+    <string name="error_generic_desc_text">Por favor, tente novamente mais tarde</string>
+    <string name="error_generic_dismiss_btn_text">OK</string>
+</resources>

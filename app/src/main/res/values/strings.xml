@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name" translatable="false">Sicredi - Dev Android</string>
+    <string name="event_list_empty_text">There are no activated events at the moment.</string>
+    <string name="event_list_title">Event list</string>
+    <string name="event_info_title">Event information</string>
+    <string name="event_info_date_label_text">Event date</string>
+    <string name="event_info_description_label_text">Details</string>
+    <string name="event_info_checkin_btn_text" translatable="false">Check-in</string>
+    <string name="checkin_user_name_hint_text">Your name</string>
+    <string name="checkin_user_email_hint_text">Your e-mail</string>
+    <string name="checkin_send_data_btn_text">Send data</string>
+    <string name="checkin_user_name_empty_error_text">Please, type your name</string>
+    <string name="checkin_user_email_empty_error_text">Please, type your e-mail</string>
+    <string name="checkin_send_data_success_title_text">Success</string>
+    <string name="checkin_send_data_success_desc_text">Your check-in is done</string>
+    <string name="checkin_send_data_success_btn_text">Close</string>
+
+    <!-- Generic Error strings -->
+    <string name="error_generic_title_text">Something went wrong!</string>
+    <string name="error_generic_desc_text">Please, try again later</string>
+    <string name="error_generic_dismiss_btn_text">OK</string>
+</resources>

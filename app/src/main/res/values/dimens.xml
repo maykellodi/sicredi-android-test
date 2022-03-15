@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sicredi_0dp">0dp</dimen>
+    <dimen name="sicredi_4dp">4dp</dimen>
+    <dimen name="sicredi_8dp">8dp</dimen>
+    <dimen name="sicredi_12dp">12dp</dimen>
+    <dimen name="sicredi_200dp">200dp</dimen>
+    <dimen name="sicredi_250dp">250dp</dimen>
+    <dimen name="sicredi_300dp">300dp</dimen>
+
+    <dimen name="sicredi_18sp">18sp</dimen>
+    <dimen name="sicredi_22sp">22sp</dimen>
+    <dimen name="sicredi_40dp">40dp</dimen>
+</resources>

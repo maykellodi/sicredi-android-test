@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main_graph"
+    app:startDestination="@id/eventListFragment">
+
+    <fragment
+        android:id="@+id/eventListFragment"
+        android:name="com.mlodi.sicredi.devandroidtest.ui.eventlist.EventListFragment"
+        android:label="@string/event_list_title"
+        tools:layout="@layout/fragment_event_list" >
+        <action
+            android:id="@+id/action_eventListFragment_to_eventInfoFragment"
+            app:destination="@id/eventInfoFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/eventInfoFragment"
+        android:name="com.mlodi.sicredi.devandroidtest.ui.eventinfo.EventInfoFragment"
+        android:label="@string/event_info_title" >
+        <action
+            android:id="@+id/action_eventInfoFragment_to_checkInFragment"
+            app:destination="@id/checkInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkInFragment"
+        android:name="com.mlodi.sicredi.devandroidtest.ui.checkin.CheckInFragment"
+        android:label="CheckInFragment" >
+        <action
+            android:id="@+id/action_checkInFragment_to_eventListFragment"
+            app:destination="@id/eventListFragment"
+            app:popUpTo="@id/eventListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
